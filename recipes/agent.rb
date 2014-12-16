@@ -6,9 +6,9 @@
 # 
 # License: MIT
 #
-
 template "/etc/logstash/conf.d/agent.conf" do
   source "logstash.conf.erb"
+  mode "0644"
   variables( :config => node[:logstash][:agent] )
   notifies :restart, "service[logstash]"
 end

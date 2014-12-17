@@ -9,6 +9,6 @@
 template "/etc/logstash/conf.d/server.conf" do
   source "logstash.conf.erb"
   mode "0644"
-  variables( :config => node[:logstash][:agent] )
+  variables( :config => node[:logstash][:server] )
   notifies :restart, "service[logstash]"
 end

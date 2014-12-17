@@ -10,6 +10,21 @@
 include_recipe "logstash::yumrepo" if platform_family? "rhel", "fedora"
 include_recipe "logstash::apt"     if platform_family? "debian"
 
+# Create user and group
+group node[:logstash][:user] do
+  action :create
+end
+
+user node[:logstash][:user] do
+  comment "Logstash User"
+  home    "/home/logstash"
+  shell   "/bin/bash"
+  gid     node[:logstash][:user]
+  supports :manage_home => false
+  action  :create
+end
+
+
 directory "/etc/logstash" do
   owner "logstash"
   group "logstash"
